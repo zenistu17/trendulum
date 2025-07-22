@@ -18,7 +18,11 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { creatorProfileAPI } from '../services/api';
 
-const Layout: React.FC = () => {
+interface LayoutProps {
+  children?: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, logout } = useAuth();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -50,6 +54,7 @@ const Layout: React.FC = () => {
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-gradient-to-br from-[#18181f] via-[#1a1a2e] to-[#2d0b3a] text-white' : 'bg-gradient-to-br from-primary-50 via-white to-secondary-50 text-gray-900'}`}>
       <ThemeToggle />
+      {children}
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
         <div className={`fixed inset-0 ${theme === 'dark' ? 'bg-black/70' : 'bg-gray-600 bg-opacity-75'}`} onClick={() => setSidebarOpen(false)} />
